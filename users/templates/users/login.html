@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href="/imgs/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Style sheet -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+    <title>GHtour</title>
+</head>
+
+<body>
+    <div class="users-main d-flex">
+        <div class="m-auto">
+            <div class="container">
+                <div class="mb-4">
+                    <center>
+                        <h1 class="font-weight-bold text-primary big-logo">GH<span class="text-success">tour</span></h1>
+
+                        <div class="pt-3 text-white">
+                            <p class="lead">Travel and explore Ghana's amazing tourist sites.</p>
+                        </div>
+                    </center>
+                </div>
+                <div class="home-box bg-white p-4 p-md-5 rounded shadow-lg">
+                    <center>
+                        <!-- <h2 class="text-primary mb-4"></h2> -->
+                    </center>
+
+                    <form method="POST" enctype='multipart/form-data' style="width: 100%;">
+                        {% csrf_token %}
+
+                        {{form|crispy}}
+
+                        <button type="submit"
+                            class="btn btn-primary btn-block text-center font-weight-bold py-3 mt-4 mb-2">Sign
+                            In</button>
+                        <small class="text-muted">You don't have an account? <a href="{% url 'signup' %}"
+                                class="text-success">Sign
+                                up</a></small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

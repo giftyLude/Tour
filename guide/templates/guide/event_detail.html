@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block nav-event %}menu-active{% endblock nav-event %}
+{% block menu-event %}menu-active{% endblock menu-event %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <img src="{{MEDIA_URL}}{{event.image.url}}" alt="" class="img-fluid mb-3 w-100">
+        <h2 class="font-weight-bold site-name mb-3">{{event.title}}</h2>
+        <div>
+            <p class="text-muted"><i class="bi bi-geo-alt mr-1"></i><span class="font-weight-bold">{{event.region}}
+                    Region</span>
+                |
+                {{event.town}}</p>
+        </div>
+        <div class="row pb-2">
+            <div class="col-5 col-md-3 pt-1"><i class="bi bi-calendar-week mr-2"></i>{{event.date}}</div>
+            <div class="col col-md-3 pt-1"><i class="bi bi-clock mr-2"></i>{{event.time}}</div>
+            <div class="col-4 col-md-3">
+                {% if user in event.users.all %}
+                <a href="{% url 'event-remove' event.pk %}" class="btn btn-success btn-sm rounded-pill">
+                    <i class="bi bi-bookmark-heart mr-1"></i>Saved
+                </a>
+                {% else %}
+                <a href="{% url 'event-add' event.pk %}" class="btn btn-outline-primary btn-sm rounded-pill">
+                    <i class="bi bi-bookmark-heart mr-1"></i>Save
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

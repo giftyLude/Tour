@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block nav-site %}menu-active{% endblock nav-site %}
+{% block menu-site %}menu-active{% endblock menu-site %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <img src="{{MEDIA_URL}}{{site.image.url}}" alt="" class="mb-3 img-fluid rounded shadow w-100">
+        <h2 class="font-weight-bold site-name">{{site.name}}</h2>
+        <p class="text-muted mb-2"><span class="font-weight-bold">{{site.region}} Region</span> |
+            {{site.town}}</p>
+        <div class="d-flex">
+            <div class="pt-2">
+                {% for i in site.count_rating %}
+                <i class="bi bi-star text-warning mr-2"></i>
+                {% endfor %}
+            </div>
+            <div class="ml-auto">
+                {% if user in site.users.all %}
+                <a href="{% url 'site-remove' site.pk %}" class="btn btn-success btn-sm rounded-pill">
+                    <i class="bi bi-bookmark-heart mr-1"></i>Saved
+                </a>
+                {% else %}
+                <a href="{% url 'site-add' site.pk %}" class="btn btn-outline-primary btn-sm rounded-pill">
+                    <i class="bi bi-bookmark-heart mr-1"></i>Save
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="rounded p-2 p-md-4 bg-light my-3">{{site.bio|safe}}</div>
+    </div>
+</div>
+
+<div class="h-scroll pt-3">
+    {% for site in other_sites %}
+    <a href="{{site.get_absolute_url}}" class="h-site-card d-inline-block text-dark">
+        <div class="p-2 border rounded">
+            <img src="{{MEDIA_URL}}{{site.image.url}}" alt="" class="img-fluid rounded">
+            <div class="px-1 mt-3">
+                <h5 class="text-success">{{site.name}}</h5>
+                <small class="text-muted"><span class="font-weight-bold">{{site.region}} Region</span> |
+                    {{site.town}}</small>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock content %}

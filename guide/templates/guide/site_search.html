@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block nav-site %}menu-active{% endblock nav-site %}
+{% block menu-site %}menu-active{% endblock menu-site %}
+
+{% block content %}
+<div class="row justify-content-center pb-md-3">
+    <form action="{% url 'site_search-results' %}" method="GET">
+        <div class="form-row">
+            <input name="q" type="text" class="form-control" id="site_search" placeholder="Find your site to visit" />
+        </div>
+    </form>
+</div>
+
+<div class="mt-3">
+    <small class="d-block mb-2 text-muted"><span class="font-weight-bold text-warning">{{results.all.count}}</span>
+        Sites Found</small>
+    <div class="row">
+        {% if results %}
+        {% for site in results %}
+        <div class="col-12 col-md-6 col-lg-4 mb-3">
+            <a href="{{site.get_absolute_url}}" class="site-card text-dark">
+                <div class="p-2 border rounded" style="height: 100%; ">
+                    <img src="{{MEDIA_URL}}{{site.image.url}}" alt="" class="img-fluid rounded">
+                    <div class="px-1 mt-3">
+                        <h5 class="text-success">{{site.name}}</h5>
+                        <small class="text-muted"><span class="font-weight-bold">{{site.region}} Region</span> |
+                            {{site.town}}</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12">
+            <div class="p3 my-5 text-center">
+                <h1>No Sites Found</h1>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-4 mb-5">
+    {% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+    <a class="btn btn-outline-success mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-success mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a class="btn btn-success mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a class="btn btn-outline-success mb-4"
+        href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-success mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-success mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+
+        {% endif %}
+</div>
+{% endblock content %}

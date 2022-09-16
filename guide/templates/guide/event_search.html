@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block nav-event %}menu-active{% endblock nav-event %}
+{% block menu-event %}menu-active{% endblock menu-event %}
+
+{% block content %}
+<div class="row justify-content-center pb-md-3">
+    <div class="col-md-6 col-lg-5">
+        <form action="{% url 'event_search-results' %}" method="GET">
+            <div class="form-row">
+                <input name="q" type="text" class="form-control" id="event_search" placeholder="Find upcoming events" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3">
+    <small class="d-block mb-2 text-muted"><span class="font-weight-bold text-warning">{{results.all.count}}</span>
+        Events Found</small>
+    <div class="row">
+        {% if results %}
+        {% for event in results %}
+        <div class="col-12 col-md-6 col-lg-4 mb-3">
+            <a href="{{event.get_absolute_url}}" class="event text-dark">
+                <div class="p-3 rounded" style=" background-image: linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.6)
+                  ),
+                  url('{{MEDIA_URL}}{{event.image.url}}');
+                  background-size: cover;  ">
+                    <h3 class="text-warning font-weight-bold">{{event.title}}</h3>
+
+                    <div>
+                        <p class="text-white"><i class="bi bi-geo-alt mr-1"></i><span
+                                class="font-weight-bold">{{event.region}}
+                                Region</span>
+                            |
+                            {{event.town}}</p>
+                    </div>
+                    <div class="row pb-2 text-white">
+                        <div class="col-5 col-md-6 pt-1"><i class="bi bi-calendar-week mr-2"></i>{{event.date}}</div>
+                        <div class="col pt-1"><i class="bi bi-clock mr-2"></i>{{event.time}}</div>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12">
+            <div class="p3 my-5 text-center">
+                <h1>No Event Found</h1>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

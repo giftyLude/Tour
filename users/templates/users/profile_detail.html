@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block nav-profile %}menu-active{% endblock nav-profile %}
+{% block menu-profile %}menu-active{% endblock menu-profile %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9 col-lg-8">
+        <div class="d-flex justify-content-between">
+            <h2>Your Profile</h2>
+            <p><a href="{% url 'profile-update' profile.slug %}" class="btn btn-outline-primary"><i
+                        class="bi bi-pen mr-2"></i>
+                    Edit</a>
+            </p>
+        </div>
+
+        <div class="my-3 p-3 pl-4 border rounded">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5>Name: <span class="ml-2 text-muted">{{profile.name}}</span></h5>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>Email: <span class="ml-2 text-muted">{{profile.email}}</span></h5>
+                </div>
+
+                <div class="col-md-6">
+                    <h5>Gender: <span class="ml-2 text-muted">{{profile.gender}}</span></h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-3">
+            <center>
+                <small class="text-muted">Favourites</small>
+            </center>
+            <div class="row mt-3">
+                <div class="col-md-4 mb-3">
+                    <a href="{% url 'profile-sites' user.username %}"
+                        class="d-block text-center p-4 rounded text-white bg-success">
+                        <h3><i class="bi bi-pin-map mr-4"></i>Sites</h3>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <a href="{% url 'profile-lodges' user.username %}"
+                        class="d-block text-center p-4 rounded text-white bg-primary">
+                        <h3><i class="bi bi-building mr-4"></i>Lodges</h3>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <a href="{% url 'profile-events' user.username %}"
+                        class="d-block text-center p-4 rounded text-white bg-warning">
+                        <h3><i class="bi bi-calendar4-week mr-4"></i>Events</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <center>
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm shadow">Sign Out</a>
+        </center>
+    </div>
+    {% endblock content %}
